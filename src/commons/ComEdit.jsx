@@ -1,14 +1,10 @@
 import React from "react";
 import {useState} from 'react';
 
-function ComEdit(props){
-
-  const [ writer, setWriter ] = useState('');
-  const [ comment, setComment] = useState('');
+const ComEdit = (props) => {
 
   const editCansle = () => {
-    const cansle = false;
-    props.editCansleFn(cansle);
+    props.modeChange('EDITCANSLE');
   }
 
   return (
@@ -18,10 +14,10 @@ function ComEdit(props){
           <tr>
             <td id="writer">
               Writer : 
-              <input type="text" name="writer" value={writer} onChange={(e) => setWriter(e.target.value)} />
+              <input type="text" name="writer" />
               <button type="button" onClick={editCansle}>수정취소</button>
             </td>
-            <td rowspan="2"><input type="submit" value="댓글수정" id="btn"/></td>
+            <td rowSpan="2"><input type="submit" value="댓글수정" id="btn"/></td>
           </tr>
           <tr>
             <td><textarea name="comment" value="블라블라"></textarea></td>

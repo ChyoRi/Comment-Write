@@ -1,10 +1,11 @@
 import React from "react";
 
-function ComList(props){
+// 댓글 목록 컴포넌트
+const ComList = (props) => {
 
-  const sendEdit = () => {
-    const edit = true;
-    props.editActiveFn(edit);
+  // 버튼을 클릭하면 mode를 Props로 App컴포넌트에 전달
+  const modeSend = (mode) => {
+    props.modeChange(mode);
   }
 
   return (
@@ -18,8 +19,8 @@ function ComList(props){
                 <td>{item.writer}</td>
                 <td>
                   {item.date}
-                  <button type="button" onClick={sendEdit}>수정</button>							
-                  <button type="button" onclick="">삭제</button>
+                  <button type="button" onClick={() => modeSend('EDIT')}>수정</button>							
+                  <button type="button" onClick={() => modeSend('DELETE')}>삭제</button>
                 </td>
               </tr>
               <tr>
