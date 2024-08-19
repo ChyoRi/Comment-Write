@@ -26,10 +26,13 @@ const ComWrite = (props) => {
   // 사용자가 댓글 작성 버튼을 누를시 작성한 댓글 From을 객체로 만들어 Props로 App 컴포넌트에 전달
   const submitFn = (e) => {
     e.preventDefault();
+    if(writer || comment == '') return;
     let newNumber = number + 1;
     setNumber(newNumber);
     let commentData = {no: newNumber, comment: comment, writer: writer, date: schedule()};
-    props.modeChange('WRITE', commentData);
+    props.writeComment(commentData);
+    setWriter('');
+    setComment('');
   }
 
   return (
