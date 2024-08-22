@@ -32,7 +32,7 @@ const App = () => {
   return (
     <div className="App">
       <Board />
-      <ComList myData={myData} receiveDeleteProps={receiveDeleteProps} receiveEditProps={receiveEditProps}/>
+      <ComList myData={myData} receiveDeleteProps={receiveDeleteProps} receiveEditProps={receiveEditProps} />
       <ComWrite myData={myData} writeComment={writeComment} />
     </div>
   );

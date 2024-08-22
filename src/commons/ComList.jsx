@@ -7,22 +7,28 @@ const ComList = (props) => {
   // 수정모드인지 아닌지 판별해주는 State
   const [ editActive, setActive ] = useState(false);
 
-  // ComList에서 가져온 CommentNo State 그리고 ComEdit 컴포넌트에 넘거주는 Props
+  // 수정 버튼을 클릭할 때 댓글 CommentNo State 그리고 ComEdit 컴포넌트에 넘거주는 Props
   const [ commentNo, setCommentNo ] = useState(null);
 
   // ComList에서 가져온 CommentNo와 맞는 myData를 찾아서 ComEdit으로 전달할 State
   const [ editData, setEditData ] = useState(null);
 
-  // Comlist 컴포넌트에서 가져온 매개변수에 따라 수정과 삭제로 처리하는 함수
+  // 수정버튼 or 삭제버튼으로 해당 mode와 댓글번호를 가져와 처리하는 함수
   const editAndDelete = (mode, data) => {
-    /* 수정 버튼을 클릭할시 editActive를 활성화 몇 번째 댓글을 수정하는건지 
+    /* 
+      수정 버튼을 클릭할시 editActive를 활성화 몇 번째 댓글을 수정하는건지 
       commentNo로 해당 댓글 번호 상태 할당 App의 myData를 find로 돌면서
-      myData와 일치하는 번호의 객체를 editData State에 할당하고 ComEdit 컴포넌트에 Props로 전달
+      Props로 넘어온 App 컴포넌트의 myData와 일치하는 번호의 객체를 editData State에 할당하고 
+      ComEdit 컴포넌트에 Props로 전달
+
+      삭제 버튼을 클릭할시 confirm에게 유저에게 한번더 삭제를 할껀지 묻고 유저가 취소를 누르면 함수를 빠져나감
+      확인을 누르면 App의 myData를 filter로 돌면서 해당 댓글과 일치하지 않는 번호의 댓글들을 배열로 return후
+      App 컴포넌트에게 receiveDeleteProps 함수의 인자로 전달함
     */
     if(mode === 'EDIT') {
       setActive(true);
       setCommentNo(data);
-      let commentEdit = props.myData.find(item => item.no == data);
+      let commentEdit = props.myData.find(item => item.no === data);
       setEditData(commentEdit);
     } else {
       const confirm = window.confirm('정말 해당 댓글을 삭제하시겠습니까?');
@@ -52,7 +58,7 @@ const ComList = (props) => {
         <tbody>
           {props.myData.map(item => (
             <React.Fragment key={item.no}>
-              {editActive && commentNo == item.no ? (
+              {editActive && commentNo === item.no ? (
                 <tr>
                   <td colSpan="3">
                     <ComEdit 
